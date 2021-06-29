@@ -1,4 +1,4 @@
-const {Country, Activity} = require('../db');
+const { Activity } = require('../db');
 
  const addActivity= async (req,res) => {
      
@@ -12,7 +12,9 @@ const {Country, Activity} = require('../db');
    },{
        fields: ['nombre', 'dificultad', 'duracion', 'temporada']
    });
-   await createActivity.setCountries(id)
+
+   await createActivity.setCountries(id);
+
    if(createActivity) {    
       res.json({            
          message: "Activity created successfully",

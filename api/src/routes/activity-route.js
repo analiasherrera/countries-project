@@ -8,6 +8,4 @@ const {addActivity} = require('../controllers/activity.controllers');
 router.post('/', addActivity);
 
 
-
-
 module.exports = router

@@ -3,25 +3,25 @@ const {Country, Activity} = require('../db');
 
 const getCountryByname = async (req,res) => {
     const nombre= req.query.name;
+    if(nombre) {
+        const countryname= await Country.findOne({
+            where: {
+                name: nombre
+            }       
+        });
+        if(!countryname){
+            res.status(404).json('No se encontro el pais')
+        } else {
+         res.json(countryname)
+        }   
+     } else {
+        const countries= await Country.findAll({limit: 10});
     
-   const countryname= await Country.findOne({
-       where: {
-           name: nombre
-       }       
-   });
-   if(!countryname){
-       res.status(404).json('No se encontro el pais')
-   } else {
-    res.json(countryname)
-   }   
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+        res.status(200).json(countries);
 
-const getCountry = async (req, res)=>{
-    const countries= await Country.findAll({limit: 10});
-    
-    res.status(200).json(countries);
-}
+     }
+
+    } 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,8 +34,6 @@ const getCountriesById = async (req,res) => {
 }
 
 
-
-
-
-
-module.exports = {getCountryByname,getCountry, getCountriesById, }
+module.exports = {
+    getCountryByname,    
+    getCountriesById }
